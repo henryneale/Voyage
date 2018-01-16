@@ -44,7 +44,7 @@ Used for managing trips for individuals. Allows a user to search the events,rest
 * bootstrap
 
 ## Development
-Once you have forked the repo from https://github.com/Charmander28/Charmander28 , install all the dependencies.
+Once you have forked the repo from https://github.com/TeamVoyage/Voyage , install all the dependencies.
 ### Installing Dependencies
 
 From within the root directory:
