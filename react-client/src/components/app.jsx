@@ -7,6 +7,7 @@ import Header from './navHeader.jsx';
 import AddCategory from './AddCategory.jsx';
 import axios from 'axios';
 import TripView from './TripView.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
   constructor(props) {
@@ -155,27 +156,33 @@ class App extends React.Component {
     const { view } = this.state;
     console.log('state view', this.state.view);
     if (view === 'trip') {
-      return <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
+      return (
+        <MuiThemeProvider>
+          <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
+        </MuiThemeProvider>
+      )
     } else if (view === 'home') {
       return (
-        <div>
-          <div className="headers">
-            <h1>Voyage</h1>
-            <h5>Ready to plan out your next getaway?</h5>
-          </div>
-          <div className="searchContainer">
-            <div>
+        <MuiThemeProvider>
+          <div>
+            <div className="headers">
+              <h1>Voyage</h1>
+              <h5>Ready to plan out your next getaway?</h5>
+            </div>
+            <div className="searchContainer">
               <div>
-                <SearchLocation changeLoc={this.onChangeLocation} />
-                <AddPrice changeBudget={this.onChangePrice} />
-                <AddCategory setActivities={this.setActivities} />
+                <div>
+                  <SearchLocation changeLoc={this.onChangeLocation} />
+                  <AddPrice changeBudget={this.onChangePrice} />
+                  <AddCategory setActivities={this.setActivities} />
+                </div>
               </div>
             </div>
+            <div className="goButton">
+              <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Lets Go! </button>
+            </div>
           </div>
-          <div className="goButton">
-            <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Lets Go! </button>
-          </div>
-        </div>
+        </MuiThemeProvider>
     );
     }
   }
