@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/tripcollab');
-mongoose.connect(process.env.MONGOLAB_PURPLE_URI);
+
+if (process.env.NODE_ENV === 'production') {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect('mongodb://localhost/tripcollab');
+}
+
 
 let restaurantSchema = mongoose.Schema({
   name: String,
