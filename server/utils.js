@@ -1,5 +1,12 @@
 const axios = require('axios');
 
+if (process.env.NODE_ENV !== 'production') {
+  console.log('line 4');
+  let config = require('../.env');
+  let YELP_API = config.YELP_API_KEY;
+  let EVENT_BRITE_API = config.EVENT_BRITE_API;
+}
+
 
 // takes list of business info from Yelp API and extracts relevant data
 const filterBusinesses = (array) => {
@@ -54,7 +61,7 @@ const getAxios = (queryURL, key, api, cb) => {
 
 // forms queryURL based on specified API and initiates GET request
 const getBusinessesOrEvents = (options, cb) => {
-  console.log('api: ', options.api);
+  // console.log('api: ', options.api);
   let queryURL;
   let key;
   const params = options;
@@ -72,12 +79,25 @@ const getBusinessesOrEvents = (options, cb) => {
     }
 
     queryURL = `https://api.yelp.com/v3/businesses/search?term=${options.term}&categories=${options.categories}&location=${options.location}&price=${options.price}&limit=10&sort_by=rating`;
-    key = process.env.YELP_API_KEY;
+
+    if (process.env.NODE_ENV === 'production') {
+      key = process.env.YELP_API_KEY;
+    } else {
+      key = YELP_API;
+    }
+
   }
 
   if (api === 'eventBrite') {
     queryURL = `https://www.eventbriteapi.com/v3/events/search/?q=concerts+festivals+shows&location.address=${options.location}&sort_by=date`;
-    key = process.env.EVENT_BRITE_API_KEY;
+
+    if (process.env.NODE_ENV === 'production') {
+      key = process.env.EVENT_BRITE_API_KEY;
+    } else {
+      key = EVENT_BRITE_API;
+    }
+
+
   }
 
   getAxios(queryURL, key, api, cb);
