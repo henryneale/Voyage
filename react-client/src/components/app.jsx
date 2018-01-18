@@ -169,7 +169,7 @@ class App extends React.Component {
           <div>
             <div className="headers">
               <h1>Voyage</h1>
-              <h5>Ready to plan out your next getaway?</h5>
+              <h5>Ready to plan your next getaway?</h5>
             </div>
             <div className="searchContainer">
               <div>
@@ -181,7 +181,7 @@ class App extends React.Component {
               </div>
             </div>
             <div className="goButton">
-              <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Lets Go! </button>
+              <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Let's go! </button>
             </div>
           </div>
         </MuiThemeProvider>

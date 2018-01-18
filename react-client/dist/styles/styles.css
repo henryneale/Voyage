@@ -1,22 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto|Poiret+One);
+
 body {
   background-color: #fedc3d;
   color: white;
-  background: url("https://i.imgur.com/jbZwJAw.jpg") no-repeat center center fixed;
+  background: url("https://i.imgur.com/cSKam1U.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
-  color: black;
+  font-family: 'Poiret One', cursive;
+  color: white;
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 60px;
+  margin-bottom: 10px;
+  font-size: 5em;
 }
 
 h5 {
-  color: black;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  color: white;
+  font-size: 1.2em;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -50,12 +58,12 @@ h5 {
   padding-top: 25px;
 }
 
-.viewTable {
+/*.viewTable {
   background-color: white;
   opacity: 0.9;
   margin: 20px 20px;
   padding: 20px 20px;
-}
+}*/
 
 table {
   width: 100%;
@@ -73,17 +81,18 @@ td {
 }
 
 .mainlogo {
-  position: fixed; /* or absolute */
+  position: fixed;  or absolute
 top: 50%;
 left: 50%;
 }
 
 label {
-  border: 0.5px solid gray;
-  border-radius: 10px;
-  background-color: #7cdbd5;
+  border-radius: 5px;
+  background-color: #939393;
   color: white;
-  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 100;
+  font-size: 1em;
   padding-right: 15px;
   margin-left: 5px;
   margin-right: 5px;
@@ -107,12 +116,12 @@ img.resize {
 }
 
 button {
+  font-family: 'Poiret One', cursive;
   text-align: center;
   background-color: #fedc3d !important;
   border: none !important;
   padding: 10px 30px !important;
-  font-size: 35px !important;
-  font-weight: bold !important;
+  font-size: 2em !important;
 }
 
 #nav {
