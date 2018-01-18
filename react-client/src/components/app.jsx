@@ -8,6 +8,7 @@ import AddCategory from './AddCategory.jsx';
 import axios from 'axios';
 import TripView from './TripView.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MenuView from './MenuView.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -156,7 +157,10 @@ class App extends React.Component {
     if (view === 'trip') {
       return (
         <MuiThemeProvider>
+          <div>
+          <MenuView />
           <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
+          </div>
         </MuiThemeProvider>
       )
     } else if (view === 'home') {
