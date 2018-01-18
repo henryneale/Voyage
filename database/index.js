@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/tripcollab');
+mongoose.connect('mongodb://localhost/tripcollab');
 mongoose.connect(process.env.MONGOLAB_PURPLE_URI);
 
 let restaurantSchema = mongoose.Schema({
