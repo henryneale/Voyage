@@ -156,10 +156,11 @@ class App extends React.Component {
     const { view } = this.state;
     if (view === 'trip') {
       return (
-
         <MuiThemeProvider>
+          <div>
           <MenuView />
           <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
+          </div>
         </MuiThemeProvider>
       )
     } else if (view === 'home') {
