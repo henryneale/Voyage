@@ -1,11 +1,11 @@
 const axios = require('axios');
 
-if (process.env.NODE_ENV !== 'production') {
+// if (process.env.NODE_ENV !== 'production') {
   console.log('line 4');
-  let config = require('../.env');
+  let config = require('./config/config');
   let YELP_API = config.YELP_API_KEY;
   let EVENT_BRITE_API = config.EVENT_BRITE_API;
-}
+// }
 
 
 // takes list of business info from Yelp API and extracts relevant data

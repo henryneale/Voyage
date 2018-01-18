@@ -34,9 +34,9 @@ node_modules/
 .env
 
 .DS_Store
-server/config/config.js
+/server/config/config.js
 
 package-lock.json
 
-/react-client/dist/bundle.js
+react-client/dist/bundle.js
 
