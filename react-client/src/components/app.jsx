@@ -152,9 +152,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('im invoked');
     const { view } = this.state;
-    console.log('state view', this.state.view);
     if (view === 'trip') {
       return (
         <MuiThemeProvider>
@@ -183,7 +181,7 @@ class App extends React.Component {
             </div>
           </div>
         </MuiThemeProvider>
-    );
+      );
     }
   }
 }
