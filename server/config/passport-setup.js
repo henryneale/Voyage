@@ -1,9 +1,8 @@
-const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../../database/index');
 const configAuth = require('./auth');
 
-module.exports = () => {
+module.exports = (passport) => {
   // used to serialize the user for the session
   passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -21,7 +20,7 @@ module.exports = () => {
       {
         clientID: configAuth.googleAuth.clientID,
         clientSecret: configAuth.googleAuth.clientSecret,
-        callbackURL: configAuth.googleAuth.callbackURL,
+        callbackURL: configAuth.googleAuth.callbackURL
       },
       (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => {
