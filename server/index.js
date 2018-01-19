@@ -1,19 +1,14 @@
 const express = require('express');
-
-
-
+const router = express.Router();
 const passport = require('passport');
-const passportSetup = require('./config/passport-setup');
+const passportSetup = require('./config/passport-setup')(passport);
 const app = express();
-
-
 const bodyParser = require('body-parser');
 const db = require('../database');
 const mongoose = require('mongoose');
 const utils = require('./utils');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
-
 
 const port = process.env.PORT || 3000;
 
@@ -25,14 +20,16 @@ app.use(express.static(`${__dirname}/../react-client/dist`));
 let authRoutes = require('./routes/auth-routes')(app);
 // authRoutes(app, passport);
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['123'],
-}));
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['123'],
+  })
+);
 
 app.use(cookieParser());
 
-app.use('/', authRoutes);
+// app.use('/', authRoutes);
 //router.set('view engine', 'ejs');
 
 // router.use('/auth', authRoutes);
@@ -52,7 +49,7 @@ app.post('/eat', (req, res) => {
     price: req.body.price || 4,
     term: term,
     categories: req.body.categories || '',
-    api: 'yelp'
+    api: 'yelp',
   };
 
   utils.getBusinessesOrEvents(options, (data) => {
@@ -66,8 +63,13 @@ app.post('/explore', (req, res) => {
   const options = {
     location: req.body.location || 'newyork',
     term: term,
-    categories: req.body.categories || ['landmarks', 'galleries', 'parks', 'musuems'],
-    api: 'yelp'
+    categories: req.body.categories || [
+      'landmarks',
+      'galleries',
+      'parks',
+      'musuems',
+    ],
+    api: 'yelp',
   };
 
   utils.getBusinessesOrEvents(options, (data) => {
@@ -77,15 +79,15 @@ app.post('/explore', (req, res) => {
 
 app.post('/party', (req, res) => {
   console.log('party endpoint hit');
-   const options = {
-     location: req.body.location || 'chicago',
-     api: 'eventBrite'
-   };
+  const options = {
+    location: req.body.location || 'chicago',
+    api: 'eventBrite',
+  };
 
   utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
   });
- });
+});
 
 app.post('/sleep', (req, res) => {
   console.log('sleep endpoint hit');
@@ -95,7 +97,7 @@ app.post('/sleep', (req, res) => {
     location: req.body.location || 'philadelphia',
     price: req.body.price || '3',
     term: term,
-    api: 'yelp'
+    api: 'yelp',
   };
 
   utils.getBusinessesOrEvents(options, (data) => {
@@ -118,5 +120,3 @@ app.get('/trips', (req, res) => {
 app.listen(port, () => {
   console.log('listening on port 3000!');
 });
-
-

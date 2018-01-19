@@ -1,38 +1,6 @@
-// const router = require('express').Router();
 const passport = require('passport');
 const express = require('express');
-const router = express.Router();
-// const app = express();
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-
-// var connect = require('connect');
-
-// // if user clicks nav bar login
-// // or if user clicks save trip and is not logged in
-// // { user: req.user } second parameter to render?
-// router.get('/login', (req, res) => {
-//   res.render('login', { user: req.user });
-// });
-
-// // auth with google+
-// router.get('/google', passport.authenticate('google', {
-//   scope: ['profile'],
-// }));
-
-// router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-//   res.send('you reached the redirect URI');
-//   res.redirect('home');
-// });
-
-// module.exports = router;
-
-// // auth logout
-// router.get('/logout', (req, res) => {
-//     // handle with passport
-//     res.send('logging out');
-// });
-
-// app/routes.js
 
 module.exports = (app) => {
   // route for home page
@@ -85,7 +53,7 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate('google', {
       failureRedirect: '/',
-      successRedirect:'/'
+      successRedirect: '/',
     }),
     (req, res) => {
       req.session.token = req.user.token;
@@ -93,8 +61,6 @@ module.exports = (app) => {
     }
   );
 };
-
-module.exports.router = router;
 
 // route middleware to make sure a user is logged in
 // const isLoggedIn = (req, res, next) => {
