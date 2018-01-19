@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../../database/index');
 const configAuth = require('./auth');
 
-module.exports = (passport) => {
+module.exports = () => {
   // used to serialize the user for the session
   passport.serializeUser((user, done) => {
     done(null, user.id);
