@@ -5,6 +5,7 @@ class AddPrice extends React.Component {
     super(props);
     this.state = {
       price: '',
+      isSelected: false
     };
 
     this.priceHandler = this.priceHandler.bind(this);
@@ -12,6 +13,7 @@ class AddPrice extends React.Component {
 
   priceHandler(e) {
     this.setState({
+      isSelected: !this.state.isSelected,
       price: e.target.value,
     }, () => this.onSetPrice());
   }
@@ -25,16 +27,16 @@ class AddPrice extends React.Component {
       <div className="priceButtons">
         <p className="priceText">
           <label>
-            <input className="radioButton" type="radio" name="price" value="1" onClick={this.priceHandler} />$
+            <input className="radioButton" type="radio" name="price" value="1" onClick={this.priceHandler} checked={this.state.isSelected} />$
           </label>
           <label>
-            <input className="radioButton" type="radio" name="price" value="2" onClick={this.priceHandler} />$$
+            <input className="radioButton" type="radio" name="price" value="2" onClick={this.priceHandler} checked={this.state.isSelected}/>$$
           </label>
           <label>
-            <input className="radioButton" type="radio" name="price" value="3" onClick={this.priceHandler} />$$$
+            <input className="radioButton" type="radio" name="price" value="3" onClick={this.priceHandler} checked={this.state.isSelected}/>$$$
           </label>
           <label>
-            <input className="radioButton" type="radio" name="price" value="4" onClick={this.priceHandler} />$$$$
+            <input className="radioButton" type="radio" name="price" value="4" onClick={this.priceHandler} checked={this.state.isSelected}/>$$$$
           </label>
         </p>
       </div>
