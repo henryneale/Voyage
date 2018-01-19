@@ -52,7 +52,7 @@ class App extends React.Component {
             <Route exact path="/" component={HomeView} />
             <Route path="/itinerary" component={ItineraryView} />
             <Route path="/results" component={TripView} />
-            <Route path="/login" component={} />
+            <Route path="/login" component={Login} />
           </Switch>
           </div>
       </Router>
