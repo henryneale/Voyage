@@ -154,6 +154,8 @@ class App extends React.Component {
 
   render() {
     const { view } = this.state;
+
+    <MenuView />
     if (view === 'trip') {
       return (
         <MuiThemeProvider>
@@ -167,6 +169,7 @@ class App extends React.Component {
       return (
         <MuiThemeProvider>
           <div>
+            <MenuView />
             <div className="headers">
               <h1>Voyage</h1>
               <h5>Ready to plan your next getaway?</h5>
