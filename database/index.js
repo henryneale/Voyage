@@ -46,6 +46,8 @@ let tripSchema = mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+module.exports.User = User;
+
 const Trip = mongoose.model('Trip', tripSchema);
 
 // // dummy data for testing

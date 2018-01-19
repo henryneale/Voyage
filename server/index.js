@@ -1,12 +1,19 @@
 const express = require('express');
-//const passportSetup = require('./config/passport-setup');
-const authRoutes = require('./routes/auth-routes');
+
+
+
+const passport = require('passport');
+const passportSetup = require('./config/passport-setup')(passport);
+const app = express();
+
+
 const bodyParser = require('body-parser');
 const db = require('../database');
 const mongoose = require('mongoose');
 const utils = require('./utils');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 
-const app = express();
 
 const port = process.env.PORT || 3000;
 
@@ -14,14 +21,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
-//app.set('view engine', 'ejs');
 
-// app.use('/auth', authRoutes);
+let authRoutes = require('./routes/auth-routes')(app,passport);
+// authRoutes(app, passport);
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['123'],
+}));
+
+app.use(cookieParser());
+
+app.use('/', authRoutes);
+//router.set('view engine', 'ejs');
+
+// router.use('/auth', authRoutes);
 
 // location, price, categories populated with dummy data unless client sends
 // params in req.body
 
-// app.get('/auth/home', (req, res) => {
+// router.get('/auth/home', (req, res) => {
 //   res.render('home');
 // });
 
@@ -99,3 +118,5 @@ app.get('/trips', (req, res) => {
 app.listen(port, () => {
   console.log('listening on port 3000!');
 });
+
+
