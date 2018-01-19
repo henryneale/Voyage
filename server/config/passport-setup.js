@@ -18,9 +18,9 @@ module.exports = (passport) => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: configAuth.googleAuth.clientID,
-        clientSecret: configAuth.googleAuth.clientSecret,
-        callbackURL: configAuth.googleAuth.callbackURL
+        clientID: process.env.CLIENT_ID || configAuth.googleAuth.clientID,
+        clientSecret: process.env.CLIENT_SECRET || configAuth.googleAuth.clientSecret,
+        callbackURL: configAuth.googleAuth.callbackURL || 'https://infinite-shore-73371.herokuapp.com'
       },
       (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => {
