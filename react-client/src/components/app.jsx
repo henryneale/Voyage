@@ -15,6 +15,9 @@ class App extends React.Component {
     console.log('index');
     super(props);
     this.state = {
+      isAuthenticated: false,
+      user: null,
+      token: '',
       location: '',
       price: '',
       activities: [],
@@ -150,6 +153,21 @@ class App extends React.Component {
     this.setState({
       sleep: data,
     });
+  }
+  onSuccess(response) {
+    const token = response.headers.get('x-auth-token');
+    response.json().then(user => {
+      if (token) {
+        this.setState({isAuthenticated: true, user: user, token: token});
+      }
+    });
+  }
+
+  onFailed (error) {
+    alert(error);
+  };
+  logout () {
+
   }
 
   render() {
