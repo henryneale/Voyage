@@ -55,10 +55,10 @@ module.exports = (passport) => {
 };
 
 // save to database
-new User({
-    googleId: profile.id,
-    username: profile.displayName
-}).save().then((newUser) => {
-    console.log('new user created: ', newUser);
-});
+// new User({
+//     googleId: profile.id,
+//     username: profile.displayName
+// }).save().then((newUser) => {
+//     console.log('new user created: ', newUser);
+// });
 

@@ -13,8 +13,6 @@ class TripView extends React.Component {
   }
 
 
-
-
   render() {
     return (
         <div>
@@ -35,7 +33,6 @@ class TripView extends React.Component {
               <Route path="/sleep" render={() => <SleepView sleep={ this.props.sleep } />} />
               <Route path="/explore" render={() => <ExploreView explore={ this.props.explore } />} />
             </Switch>
-
           </div>
         </div>
     );

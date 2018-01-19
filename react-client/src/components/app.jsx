@@ -11,6 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuView from './MenuView.jsx';
 import ItineraryView from './ItineraryView.jsx';
 import HomeView from './HomeView.jsx';
+import Login from './Login.jsx';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 class App extends React.Component {
