@@ -14,6 +14,9 @@ class App extends React.Component {
     console.log('index');
     super(props);
     this.state = {
+      isAuthenticated: false,
+      user: null,
+      token: '',
       location: '',
       price: '',
       activities: [],
@@ -150,8 +153,43 @@ class App extends React.Component {
       sleep: data,
     });
   }
+  onSuccess(response) {
+    const token = response.headers.get('x-auth-token');
+    response.json().then(user => {
+      if (token) {
+        this.setState({isAuthenticated: true, user: user, token: token});
+      }
+    });
+  }
+
+  onFailed (error) {
+    alert(error);
+  };
+  logout () {
+
+  }
 
   render() {
+    // let content = !!this.state.isAuthenticated ?
+    // (
+    //   <div>
+    //     <p>Authenticated</p>
+    //     <div>
+    //       {this.state.user.email}
+    //     </div>
+    //     <div>
+    //       <button onClick={this.logout} className="button" >
+    //         Log out
+    //       </button>
+    //     </div>
+    //   </div>
+    // ) :
+    // (
+    //   <a loginUrl="http://localhost:3000/auth/google"
+    //                 onFailure={this.onFailed} onSuccess={this.onSuccess}
+    //                 requestTokenUrl="http://localhost:3000/auth/google"/>
+
+    // );
     console.log('im invoked');
     const { view } = this.state;
     console.log('state view', this.state.view);
@@ -159,6 +197,7 @@ class App extends React.Component {
       return (
         <MuiThemeProvider>
           <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
+
         </MuiThemeProvider>
       )
     } else if (view === 'home') {
