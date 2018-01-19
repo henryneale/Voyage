@@ -1,22 +1,40 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import FontIcon from 'material-ui/FontIcon';
+import { Menu, Button } from 'semantic-ui-react';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
+const colors = [
+  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
+  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black',
+]
 
-const styles = {
-  icons: {
-    marginRight: 24,
+class MenuView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
   }
-};
 
+  handleItemClick(e, name) {
+    this.setState({
+      activeItem: name
+    });
+  }
 
-const MenuView = () => (
-    <Tabs>
-      <Tab icon={<FontIcon className="material-icons" style={styles.icons}>home</FontIcon>} />
-      <Tab icon={<FontIcon className="material-icons" style={styles.icons}>card_travel</FontIcon>} />
-      <Tab icon={<FontIcon className="material-icons" style={styles.icons}>person</FontIcon>} />
-    </Tabs>
-);
+  render() {
+    const { activeItem } = this.state;
+
+    return (
+      <Menu size='large'>
+        <Link to='/'><Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} /></Link>
+        <Link to='/itinerary'><Menu.Item name='my trips' active={activeItem === 'itineraries'} onClick={this.handleItemClick} /></Link>
+
+        <Menu.Menu position='right'>
+          <Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} />
+        </Menu.Menu>
+      </Menu>
+    )
+  }
+}
 
 export default MenuView;
