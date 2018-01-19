@@ -186,6 +186,10 @@ class App extends React.Component {
           </div>
         </MuiThemeProvider>
       );
+    } else if (view === 'itinerary') {
+      // component for itinerary view goes here
+    } else if (view === 'login') {
+      // component for login goes here
     }
   }
 }
