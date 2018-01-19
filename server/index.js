@@ -3,7 +3,7 @@ const express = require('express');
 
 
 const passport = require('passport');
-const passportSetup = require('./config/passport-setup')(passport);
+const passportSetup = require('./config/passport-setup');
 const app = express();
 
 
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
 
-let authRoutes = require('./routes/auth-routes')(app,passport);
+let authRoutes = require('./routes/auth-routes')(app);
 // authRoutes(app, passport);
 
 app.use(cookieSession({

@@ -1,8 +1,8 @@
 // const router = require('express').Router();
-const passport = require('passport')
+const passport = require('passport');
 const express = require('express');
 const router = express.Router();
-const app = express();
+// const app = express();
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // var connect = require('connect');
@@ -34,7 +34,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // app/routes.js
 
-module.exports = (app, passport) => {
+module.exports = (app) => {
   // route for home page
   app.get('/', (req, res) => {
     if (req.session.token) {
