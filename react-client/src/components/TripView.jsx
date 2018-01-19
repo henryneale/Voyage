@@ -9,14 +9,14 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 class TripView extends React.Component {
   constructor(props) {
     super(props);
+
   }
 
-// <Link> tag used to direct user to proper page renders
-// More info here: https://reacttraining.com/react-router/web/api/Link
+
+
 
   render() {
     return (
-      <BrowserRouter>
         <div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -35,16 +35,12 @@ class TripView extends React.Component {
               <Route path="/sleep" render={() => <SleepView sleep={ this.props.sleep } />} />
               <Route path="/explore" render={() => <ExploreView explore={ this.props.explore } />} />
             </Switch>
+
           </div>
         </div>
-      </BrowserRouter>
     );
   }
 
-  // <Switch> tag used to ensure that only the matching path component will render
-  // Example: Without <Switch>, "/e" and "/eat" path components would both render
-  // because "/e" path matches the first two strings in "/eat"
-  // More info here: https://reacttraining.com/react-router/web/api/Switch  
 
 }
 

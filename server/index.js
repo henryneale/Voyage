@@ -17,29 +17,17 @@ app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
 
-let authRoutes = require('./routes/auth-routes')(app);
-// authRoutes(app, passport);
 
-app.use(
-  cookieSession({
-    name: 'session',
-    keys: ['123'],
-  })
-);
+const authRoutes = require('./routes/auth-routes')(app);
 
-app.use(cookieParser());
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['123'],
+// }));
 
-// app.use('/', authRoutes);
-//router.set('view engine', 'ejs');
+// app.use(cookieParser());
 
-// router.use('/auth', authRoutes);
 
-// location, price, categories populated with dummy data unless client sends
-// params in req.body
-
-// router.get('/auth/home', (req, res) => {
-//   res.render('home');
-// });
 
 app.post('/eat', (req, res) => {
   console.log('eat endpoint hit');

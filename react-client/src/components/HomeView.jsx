@@ -9,10 +9,10 @@ import axios from 'axios';
 import TripView from './TripView.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuView from './MenuView.jsx';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 class HomeView extends React.Component {
   constructor(props) {
-    console.log('index');
     super(props);
     this.state = {
       location: '',
@@ -33,7 +33,6 @@ class HomeView extends React.Component {
     this.getPartyData = this.getPartyData.bind(this);
     this.getSleepData = this.getSleepData.bind(this);
     this.changeTripView = this.changeTripView.bind(this);
-    this.changeView = this.changeView.bind(this);
   }
 
   // sets the location state
@@ -67,7 +66,6 @@ class HomeView extends React.Component {
         price: this.state.price,
       })
         .then(response => {
-          console.log('explore data from server', response);
            this.getExploreData(response.data);
         })
         .catch(error => {
@@ -81,7 +79,6 @@ class HomeView extends React.Component {
         price: this.state.price,
       })
         .then(response => {
-           console.log('sleep data from server', response);
            this.getSleepData(response.data);
         })
         .catch(error => {
@@ -95,7 +92,6 @@ class HomeView extends React.Component {
         price: parseInt(this.state.price),
       })
         .then(response => {
-           console.log('eat data from server', response);
            this.getEatData(response.data);
         })
         .catch(error => {
@@ -109,13 +105,13 @@ class HomeView extends React.Component {
         price: this.state.price,
       })
         .then(response => {
-           console.log('party data from server', response.data);
            this.getPartyData(response.data);
         })
         .catch(error => {
           console.log('error..!!', error);
         });
     }
+
     this.changeTripView();
   }
 
@@ -154,20 +150,13 @@ class HomeView extends React.Component {
     });
   }
 
-  changeView(e) {
-    console.log('changing view')
-    console.log('e:', e)
-    this.setState({
-      view: e,
-    });
-  }
+
 
   render() {
     const { view } = this.state;
       return (
         <MuiThemeProvider>
           <div>
-            <MenuView />
             <div className="headers">
               <h1>Voyage</h1>
               <h5>Ready to plan your next getaway?</h5>
@@ -182,8 +171,9 @@ class HomeView extends React.Component {
               </div>
             </div>
             <div className="goButton">
-              <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Let's go! </button>
+              <Link to="/results"><button type="button" className="btn btn-primary mb-2" onClick={this.go} > Let's go! </button></Link>
             </div>
+
           </div>
         </MuiThemeProvider>
       );

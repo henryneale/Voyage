@@ -9,7 +9,7 @@ import axios from 'axios';
 import TripView from './TripView.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuView from './MenuView.jsx';
-import ItineraryView from './MenuView.jsx';
+import ItineraryView from './ItineraryView.jsx';
 import HomeView from './HomeView.jsx';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
@@ -26,32 +26,37 @@ class App extends React.Component {
   }
 
 
-  onSuccess(response) {
-    const token = response.headers.get('x-auth-token');
-    response.json().then(user => {
-      if (token) {
-        this.setState({isAuthenticated: true, user: user, token: token});
-      }
-    });
-  }
+  // onSuccess(response) {
+  //   const token = response.headers.get('x-auth-token');
+  //   response.json().then(user => {
+  //     if (token) {
+  //       this.setState({isAuthenticated: true, user: user, token: token});
+  //     }
+  //   });
+  // }
 
-  onFailed (error) {
-    alert(error);
-  };
-  logout () {
-
-  }
+  // onFailed (error) {
+  //   alert(error);
+  // };
+  // logout () {
+  // }
 
 
   render() {
     return(
+      <div>
       <Router>
-        <Switch>
-          <Route exact path="/" render={() => <HomeView />} />
-          <Route path="/itinerary" render={() => <ItineraryView />} />
-          <Route path="/results" component={TripView} />
-        </Switch>
+        <div>
+          <MenuView />
+          <Switch>
+            <Route exact path="/" component={HomeView} />
+            <Route path="/itinerary" component={ItineraryView} />
+            <Route path="/results" component={TripView} />
+            <Route path="/login" component={} />
+          </Switch>
+          </div>
       </Router>
+      </div>
     )
     // <MenuView />
     // if (view === 'trip') {
