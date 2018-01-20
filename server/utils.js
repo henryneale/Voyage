@@ -23,7 +23,7 @@ const filterBusinesses = (array) => {
       url: business.url,
       rating: business.rating,
       phone: business.phone,
-
+      price: business.price,
     };
   });
 };

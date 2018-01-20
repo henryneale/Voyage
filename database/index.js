@@ -6,115 +6,143 @@ if (process.env.NODE_ENV === 'production') {
   mongoose.connect('mongodb://localhost/tripcollab');
 }
 
-let restaurantSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let hotelSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let eventSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let attractionSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
 let userSchema = mongoose.Schema({
-  googleId: String,
   username: String,
-  trips: Array
+  itineraries: Array,
 });
 
-let tripSchema = mongoose.Schema({
+let yelpSchema = mongoose.Schema({
+  id: String,
+  name: String,
+  imageUrl: String,
+  url: String,
+  rating: String,
+  phone: String,
+  price: String,
+});
+
+let eventBriteSchema = mongoose.Schema({
+  id: String,
+  name: String,
+  imageUrl: String,
+  url: String,
+  description: String,
+  start: Date,
+  end: Date,
+  cost: Number,
+});
+
+let itinerarySchema = mongoose.Schema({
+  username: String,
   name: String,
   location: String,
-  restaurants: [restaurantSchema],
-  hotels: [hotelSchema],
-  events: [eventSchema],
-  attractions: [attractionSchema]
+  businesses: [yelpSchema],
+  events: [eventBriteSchema],
 });
 
 const User = mongoose.model('User', userSchema);
 module.exports.User = User;
 
-const Trip = mongoose.model('Trip', tripSchema);
+const Itinerary = mongoose.model('Itinerary', itinerarySchema)
+module.exports.Itinerary = Itinerary;
 
-// // dummy data for testing
-// const testTrip = {
-//   name: 'example trip2',
-//   location: 'chicago',
-//   restaurants: [{name: 'Burger King', price: 1, rating: 3 }],
-//   hotels: [{name: 'Hyatt', price: 2, rating: 3 }],
-//   events: [{name: 'Some Comedy Show'}],
-//   attractions: [{name: 'Space Musuem'}]
-// };
-//
-// const testUser = new User({
-//   googleId: 'daniel',
-//   username: 'kelly',
-//   trips: []
-// });
-//
-// testUser.save(err => {
-//   if(err) console.log(err);
-// });
+const Business = mongoose.model('Business', yelpSchema);
+module.exports.Business = Business;
 
-let saveTrip = (tripInfo, cb) => {
-  const trip = new Trip({
-    name: tripInfo.name,
-    location: tripInfo.location,
-    restaurants: tripInfo.restaurants,
-    hotels: tripInfo.hotels,
-    events: tripInfo.events,
-    attractions: tripInfo.attractions
+const Event = mongoose.model('Event', eventBriteSchema);
+module.exports.Event = Event;
+
+module.exports.createBusiness = (data, res) => {
+  const business = new Business({
+    id: data.id,
+    name: data.name,
+    imageUrl: data.imageUrl,
+    url: data.url,
+    rating: data.rating,
+    phone: data.phone,
+    price: data.price,
   });
-
-  const trip_id = trip._id;
-  console.log('trip id: ', trip._id);
-
-  trip.save(err => {
-    if (err) {
-      console.log(err);
-    } else {
-      cb();
-    }
-  });
-
-
-
-  // User.find({googleId: currentUser}, (err, user) => {
-  //   user[0].trips = user[0].trips.concat(trip_id);
-  //   user[0].save(err => {
-  //     if(err) {
-  //       console.log(err);
-  //     }
-  //   });
-  // });
+  Business.create(business)
+    .then((newBusiness) => {
+      res.status(201).json(newBusiness);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
-let getAllTrips = (cb) => {
-    Trip.find({}, (err, trips) => {
-      if (err) {
-        return handleError(err);
-      } else {
-        cb(trips);
-      }
+module.exports.createEvent = (data, res) => {
+  const event = new Event({
+    id: data.id,
+    name: data.name,
+    imageUrl: data.imageUrl,
+    url: data.url,
+    description: data.description,
+    start: data.start,
+    end: data.end,
+    cost: data.cost,
+  });
+
+  Event.create(event)
+    .then((newEvent) => {
+      res.status(201).json(newEvent);
+    })
+    .catch((err) => {
+      res.send(err);
     });
-  };
+};
 
-// // test db functionality
-// saveTrip(testTrip2, 'daniel');
+module.exports.createItinerary = (data, res) => {
+  const itinerary = new Itinerary({
+    username: data.username,
+    name: data.name,
+    location: data.location,
+    businesses: data.businesses,
+    events: data.events,
+  });
+  Itinerary.create(itinerary)
+    .then((newItinerary) => {
+      res.status(201).json(newItinerary);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
 
-module.exports.saveTrip = saveTrip;
-module.exports.getAllTrips = getAllTrips;
+module.exports.createUser = (data, res) => {
+  const user = new User({
+    username: data.username,
+    itineraries: data.itineraries,
+  });
+  User.create(user)
+    .then((newUser) => {
+      res.status(201).json(newUser);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+module.exports.updateUser = (data, res) => {
+  const user = new User({
+    username: data.username,
+    itineraries: data.itineraries,
+  });
+  User.create(user)
+    .then((newUser) => {
+      res.status(201).json(newUser);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+module.exports.getUserItineraries = (user, res) => {
+  Itinerary.find({ username: user })
+    .then((itineraries) => {
+      res.json(itineraries);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
