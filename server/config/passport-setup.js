@@ -1,9 +1,19 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../../database/index');
 let configAuth;
+let client_ID;
+let client_Secret;
+let callback_URL;
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
+  client_ID = process.env.CLIENT_ID;
+  client_Secret = process.env.CLIENT_SECRET;
+  callback_URL = 'https://infinite-shore-73371.herokuapp.com';
+} else {
   configAuth = require('./auth');
+  client_ID = configAuth.googleAuth.clientID;
+  client_Secret = configAuth.googleAuth.clientSecret;
+  callback_URL = configAuth.googleAuth.callbackURL;
 }
 
 module.exports = (passport) => {
@@ -22,9 +32,9 @@ module.exports = (passport) => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.CLIENT_ID || configAuth.googleAuth.clientID,
-        clientSecret: process.env.CLIENT_SECRET || configAuth.googleAuth.clientSecret,
-        callbackURL: configAuth.googleAuth.callbackURL || 'https://infinite-shore-73371.herokuapp.com'
+        clientID: client_ID,
+        clientSecret: client_Secret,
+        callbackURL: callback_URL
       },
       (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => {
