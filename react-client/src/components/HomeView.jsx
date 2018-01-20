@@ -22,7 +22,6 @@ class HomeView extends React.Component {
       eat: [],
       party: [],
       explore: [],
-      view: 'home',
     };
     this.onChangeLocation = this.onChangeLocation.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
@@ -32,7 +31,11 @@ class HomeView extends React.Component {
     this.getEatData = this.getEatData.bind(this);
     this.getPartyData = this.getPartyData.bind(this);
     this.getSleepData = this.getSleepData.bind(this);
-    this.changeTripView = this.changeTripView.bind(this);
+  }
+
+  // Remember state for the next mount
+  componentWillUnmount() {
+    state = this.state;
   }
 
   // sets the location state
@@ -115,39 +118,32 @@ class HomeView extends React.Component {
     this.changeTripView();
   }
 
-//sets the trip view
-  changeTripView() {
-    this.setState({
-      view: 'trip',
-    });
-  }
-
   // sets the state with the explore data which is coming from server
   getExploreData(data) {
     this.setState({
       explore: data,
-    });
+    }, () => this.props.handler(this.state.explore, 'explore'));
   }
 
   // sets the state with the eat data which is coming from server
   getEatData(data) {
     this.setState({
       eat: data,
-    });
+    }, () => this.props.handler(this.state.eat, 'eat'));
   }
 
   // sets the state with the party data which is coming from server
   getPartyData(data) {
     this.setState({
       party: data,
-    });
+    }, () => this.props.handler(this.state.party, 'party'));
   }
 
   // sets the state with the sleep data which is coming from server
   getSleepData(data) {
     this.setState({
       sleep: data,
-    });
+    }, () => this.props.handler(this.state.sleep, 'explore'));
   }
 
 
