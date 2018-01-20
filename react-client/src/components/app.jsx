@@ -12,20 +12,22 @@ import MenuView from './MenuView.jsx';
 import ItineraryView from './ItineraryView.jsx';
 import HomeView from './HomeView.jsx';
 import Login from './Login.jsx';
+import EatView from './EatView.jsx';
+import PartyView from './PartyView.jsx';
+import SleepView from './SleepView.jsx';
+import ExploreView from './ExploreView.jsx';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 class App extends React.Component {
 
   constructor(props) {
-    console.log('index');
     super(props);
     this.state = {
       isAuthenticated: false,
       user: null,
-      token: ''
+      token: '',
     };
   }
-
 
   // onSuccess(response) {
   //   const token = response.headers.get('x-auth-token');
@@ -42,6 +44,33 @@ class App extends React.Component {
   // logout () {
   // }
 
+  handler(data, type) {
+    console.log('data: ', data);
+    if (type === 'eat') {
+      this.setState({
+        eat: data
+      });
+    }
+
+    if (type === 'sleep') {
+      this.setState({
+        sleep: data
+      });
+    }
+
+    if (type === 'party') {
+      this.setState({
+        party: data
+      });
+    }
+
+
+    if (type === 'explore') {
+      this.setState({
+        explore: data
+      });
+    }
+  }
 
   render() {
     return(
@@ -50,50 +79,20 @@ class App extends React.Component {
         <div>
           <MenuView />
           <Switch>
-            <Route exact path="/" component={HomeView} />
+            <Route exact path="/" render={() => <HomeView handler={ this.handler.bind(this) }/>} />
             <Route path="/itinerary" component={ItineraryView} />
             <Route path="/results" component={TripView} />
             <Route path="/login" component={Login} />
+            <Route path="/eat" render={() => <EatView eat={ this.state.eat } />} />
+            <Route path="/party" render={() => <PartyView party={ this.state.party } />} />
+            <Route path="/sleep" render={() => <SleepView sleep={ this.state.sleep } />} />
+            <Route path="/explore" render={() => <ExploreView explore={ this.state.explore } />} />
           </Switch>
           </div>
       </Router>
       </div>
     )
-    // <MenuView />
-    // if (view === 'trip') {
-    //   return (
-    //     <MuiThemeProvider>
-    //       <div>
-    //       <MenuView onChangeView={this.changeView}/>
-    //       <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
-    //       </div>
-    //     </MuiThemeProvider>
-    //   )
-    // } else if (view === 'home') {
-    //   return (
-    //     <MuiThemeProvider>
-    //       <div>
-    //         <MenuView />
-    //         <div className="headers">
-    //           <h1>Voyage</h1>
-    //           <h5>Ready to plan your next getaway?</h5>
-    //         </div>
-    //         <div className="searchContainer">
-    //           <div>
-    //             <div>
-    //               <SearchLocation changeLoc={this.onChangeLocation} />
-    //               <AddPrice changeBudget={this.onChangePrice} />
-    //               <AddCategory setActivities={this.setActivities} />
-    //             </div>
-    //           </div>
-    //         </div>
-    //         <div className="goButton">
-    //           <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Let's go! </button>
-    //         </div>
-    //       </div>
-    //     </MuiThemeProvider>
-    //   );
-    // }
+
 
   }
 }

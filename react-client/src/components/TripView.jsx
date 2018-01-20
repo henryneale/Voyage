@@ -26,14 +26,6 @@ class TripView extends React.Component {
               </div>
             </div>
           </nav>
-          <div>
-            <Switch>
-              <Route path="/eat" render={() => <EatView eat={ this.props.eat } />} />
-              <Route path="/party" render={() => <PartyView party={ this.props.party } />} />
-              <Route path="/sleep" render={() => <SleepView sleep={ this.props.sleep } />} />
-              <Route path="/explore" render={() => <ExploreView explore={ this.props.explore } />} />
-            </Switch>
-          </div>
         </div>
     );
   }
