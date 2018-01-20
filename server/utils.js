@@ -21,7 +21,9 @@ const filterBusinesses = (array) => {
       name: business.name,
       imageUrl: business.image_url,
       url: business.url,
-      rating: business.rating
+      rating: business.rating,
+      phone: business.phone,
+
     };
   });
 };
@@ -37,7 +39,8 @@ const filterEvents = (array) => {
       url: event.url,
       description: event.description.text,
       start: event.start.local,
-      end: event.end.local
+      end: event.end.local,
+      cost: event.ticket_classes.cost,
     };
   });
 };
