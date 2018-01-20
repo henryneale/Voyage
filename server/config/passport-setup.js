@@ -1,6 +1,10 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../../database/index');
-const configAuth = require('./auth');
+let configAuth;
+
+if (process.env.NODE_ENV !== 'production') {
+  configAuth = require('./auth');
+}
 
 module.exports = (passport) => {
   // used to serialize the user for the session
