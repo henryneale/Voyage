@@ -1,8 +1,9 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../../database/index');
+let configAuth;
 
 if (process.env.NODE_ENV !== 'production') {
-  const configAuth = require('./auth');
+  configAuth = require('./auth');
 }
 
 module.exports = (passport) => {
