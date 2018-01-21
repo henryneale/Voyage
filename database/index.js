@@ -36,14 +36,16 @@ let itinerarySchema = mongoose.Schema({
   username: String,
   name: String,
   location: String,
-  businesses: [yelpSchema],
-  events: [eventBriteSchema],
+  eat: Array,
+  sleep: Array,
+  explore: Array,
+  events: Array,
 });
 
 const User = mongoose.model('User', userSchema);
 module.exports.User = User;
 
-const Itinerary = mongoose.model('Itinerary', itinerarySchema)
+const Itinerary = mongoose.model('Itinerary', itinerarySchema);
 module.exports.Itinerary = Itinerary;
 
 const Business = mongoose.model('Business', yelpSchema);
@@ -123,18 +125,23 @@ module.exports.createUser = (data, res) => {
     });
 };
 
-module.exports.updateUser = (data, res) => {
-  const user = new User({
-    username: data.username,
-    itineraries: data.itineraries,
+module.exports.updateOrCreateUser = (query, cb) => {
+  User.findOne({ 'googleId': query.googleId }, (err, user) => {
+    if (!user) {
+      let newUser = new User({
+        sessionID: query.sessionID,
+        googleId: query.googleId,
+      });
+      newUser.save((err, user) => {
+        cb(err, user);
+      });
+    } else {
+      user.sessionID = query.sessionID;
+      user.save((err, user) => {
+        cb(err, user);
+      });
+    }
   });
-  User.create(user)
-    .then((newUser) => {
-      res.status(201).json(newUser);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
 };
 
 module.exports.getUserItineraries = (user, res) => {
@@ -145,4 +152,8 @@ module.exports.getUserItineraries = (user, res) => {
     .catch((err) => {
       res.send(err);
     });
+};
+
+module.exports.logout = (sessionID, cb) => {
+  User.update({ sessionID: sessionID }, { $set: { sessionID: '' } }, cb);
 };

@@ -1,5 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../../database/index');
+const database = require('../../database/index');
+const User = database.User;
+
 let configAuth;
 let client_ID;
 let client_Secret;
@@ -34,39 +36,56 @@ module.exports = (passport) => {
       {
         clientID: client_ID,
         clientSecret: client_Secret,
-        callbackURL: callback_URL
+        callbackURL: callback_URL,
+        passReqToCallback: true,
       },
-      (accessToken, refreshToken, profile, done) => {
-        process.nextTick(() => {
-          // try to find the user based on their google id
-          User.findOne({ 'google.id': profile.id }, (err, user) => {
-            if (err) return done(err);
-
-            if (user) {
-              // if a user is found, log them in
-              return done(null, user);
-            } else {
-              // if the user isnt in our database, create a new user
-              const newUser = new User();
-
-              // set all of the relevant information
-              newUser.google.id = profile.id;
-              newUser.google.token = accessToken;
-              newUser.google.name = profile.displayName;
-              newUser.google.email = profile.emails[0].value; // pull the first email
-
-              // save the user
-              newUser.save((err) => {
-                if (err) throw err;
-                return done(null, newUser);
-              });
-            }
-          });
-        });
+      (req, accessToken, refreshToken, profile, done) => {
+        database.updateOrCreateUser(
+          {
+            googleId: profile.id,
+            sessionID: req.sessionID,
+          },
+          (err, user) => {
+            return done(err, user);
+          }
+        );
       }
     )
   );
 };
+
+
+
+// try to find the user based on their google id
+// User.findOne({ 'google.id': profile.id }, (err, user) => {
+//   if (err) return done(err, user);
+
+//   if (user) {
+//     // if a user is found, log them in
+//     user.sessionID = req.sessionID;
+//     return done(null, user);
+//   } else {
+//     // if the user isnt in our database, create a new user
+//     const newUser = new User();
+
+//     // set all of the relevant information
+//     newUser.google.id = profile.id;
+//     newUser.google.token = accessToken;
+//     newUser.google.name = profile.displayName;
+//     newUser.google.email = profile.emails[0].value; // pull the first email
+//     console.log('newUser', newUser);
+
+//     // save the user
+//     newUser.save((err) => {
+//       if (err) throw err;
+//       return done(null, newUser);
+//     });
+//           });
+//         });
+//       }
+//     )
+//   );
+// };
 
 // save to database
 // new User({
@@ -75,4 +94,3 @@ module.exports = (passport) => {
 // }).save().then((newUser) => {
 //     console.log('new user created: ', newUser);
 // });
-

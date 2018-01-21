@@ -17,6 +17,22 @@ app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
 
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+app.use(require('cookie-parser')());
+// app.use(session({ secret: 'keyboard cat' }));
+app.use(
+  session({
+    secret: 'my little secret',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const authRoutes = require('./routes/auth-routes')(app);
 
@@ -26,8 +42,6 @@ const authRoutes = require('./routes/auth-routes')(app);
 // }));
 
 // app.use(cookieParser());
-
-
 
 app.post('/eat', (req, res) => {
   console.log('eat endpoint hit');
@@ -90,18 +104,6 @@ app.post('/sleep', (req, res) => {
 
   utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
-  });
-});
-
-app.post('/trips', (req, res) => {
-  db.saveTrip(req.body, () => {
-    res.sendStatus(201);
-  });
-});
-
-app.get('/trips', (req, res) => {
-  db.getAllTrips((trips) => {
-    res.send(trips);
   });
 });
 
