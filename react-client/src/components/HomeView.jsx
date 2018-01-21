@@ -35,7 +35,7 @@ class HomeView extends React.Component {
 
   // Remember state for the next mount
   componentWillUnmount() {
-    state = this.state;
+    // state = this.state;
   }
 
   // sets the location state

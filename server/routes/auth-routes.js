@@ -1,11 +1,15 @@
 const passport = require('passport');
 const express = require('express');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const database = require('../../database/index');
+const User = database.User;
 
 module.exports = (app) => {
   // route for home page
   app.get('/', (req, res) => {
-    if (req.session.token) {
+    console.log('req sessionID', req.sessionID);
+    console.log('req session token', req.session.token);
+    if (req.sessionID) {
       res.cookie('token', req.session.token);
       res.json({
         status: 'session cookie set',
@@ -30,11 +34,37 @@ module.exports = (app) => {
   //   });
   // });
 
+  app.post('/itinerary', (req, res) => {
+    if (!req.user) {
+      console.log('!post req user', req.user);
+      res.redirect('/auth/google');
+    } else {
+      console.log('post req user', req.user);
+      res.redirect('/');
+    }
+  });
+
+  app.get('/itinerary', (req, res) => {
+    // res.send('hello');
+    if (!req.user) {
+      console.log('!get req user', req.user);
+      // console.log('!get req user', req.session.token);
+      // console.log('!req', req);
+      res.redirect('/auth/google');
+    } else {
+      console.log('get req user', req.user);
+      // res.json(req.user);
+      res.redirect('/');
+    }
+  });
+
+
+
   // route for logging out
   app.get('/logout', (req, res) => {
-    req.logout();
-    res.session = null;
-    res.redirect('/');
+    database.logout(req.sessionID, () => {
+      res.send(false);
+    });
   });
 
   // =====================================
@@ -45,7 +75,13 @@ module.exports = (app) => {
   // email gets their emails
   app.get(
     '/auth/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] })
+    // passport.authenticate('google', { scope: ['profile', 'email'] })
+    passport.authenticate('google', {
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email',
+      ],
+    })
   );
 
   // the callback after google has authenticated the user
@@ -53,13 +89,24 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate('google', {
       failureRedirect: '/',
-      successRedirect: '/',
+      // successRedirect: '/',
     }),
     (req, res) => {
-      req.session.token = req.user.token;
+      // req.session.token = req.user.token;
+      // console.log(req.user.token);
       res.redirect('/');
     }
   );
+
+  app.get('/checkSession', (req, res) => {
+    User.findOne({ sessionID: req.sessionID }, (err, user) => {
+      if (user) {
+        res.send(true);
+      } else {
+        res.send(false);
+      }
+    });
+  });
 };
 
 // route middleware to make sure a user is logged in

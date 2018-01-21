@@ -16,9 +16,9 @@ class MenuView extends React.Component {
   }
 
   handleItemClick(e, name) {
-    this.setState({
-      activeItem: name
-    });
+    // this.setState({
+    //   activeItem: name
+    // });
   }
 
   render() {
@@ -27,7 +27,7 @@ class MenuView extends React.Component {
     return (
       <Menu size='large'>
         <Link to='/'><Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} /></Link>
-        <Link to='/itinerary'><Menu.Item name='my trips' active={activeItem === 'itineraries'} onClick={this.handleItemClick} /></Link>
+        <a href='/itinerary'><Menu.Item name='my trips' active={activeItem === 'itineraries'} onClick={this.handleItemClick} /></a>
 
         <Menu.Menu position='right'>
           <Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} />
