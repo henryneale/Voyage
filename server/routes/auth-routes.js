@@ -22,6 +22,12 @@ module.exports = (app) => {
     }
   });
 
+  app.get('/profile/:username', (req, res) => {
+    if (req.user) {
+      res.send(req.user);
+    }
+  });
+
   // route for login form
   // route for processing the login form
   // route for signup form
@@ -54,11 +60,29 @@ module.exports = (app) => {
     } else {
       console.log('get req user', req.user);
       // res.json(req.user);
+      res.redirect('/trips');
+    }
+  });
+
+  app.post('/login', (req, res) => {
+    if (!req.user) {
+      console.log('!post req user', req.user);
+      res.redirect('/auth/google');
+    } else {
+      console.log('post req user', req.user);
       res.redirect('/');
     }
   });
 
-
+  app.get('/login', (req, res) => {
+    if (!req.user) {
+      console.log('!get req user', req.user);
+      res.redirect('/auth/google');
+    } else {
+      console.log('get req user', req.user);
+      res.redirect('/trips');
+    }
+  });
 
   // route for logging out
   app.get('/logout', (req, res) => {
@@ -89,7 +113,7 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate('google', {
       failureRedirect: '/',
-      // successRedirect: '/',
+      successRedirect: '/',
     }),
     (req, res) => {
       // req.session.token = req.user.token;

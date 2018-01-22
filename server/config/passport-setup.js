@@ -40,8 +40,16 @@ module.exports = (passport) => {
         passReqToCallback: true,
       },
       (req, accessToken, refreshToken, profile, done) => {
+        console.log('email', profile.emails[0].value);
+        console.log('googleId', profile.id);
+        console.log('sessionId', req.sessionID);
+        const username = profile.emails[0].value.slice(
+          0,
+          profile.emails[0].value.indexOf('@')
+        );
         database.updateOrCreateUser(
           {
+            username,
             googleId: profile.id,
             sessionID: req.sessionID,
           },
@@ -53,8 +61,6 @@ module.exports = (passport) => {
     )
   );
 };
-
-
 
 // try to find the user based on their google id
 // User.findOne({ 'google.id': profile.id }, (err, user) => {

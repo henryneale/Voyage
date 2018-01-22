@@ -9,6 +9,8 @@ if (process.env.NODE_ENV === 'production') {
 let userSchema = mongoose.Schema({
   username: String,
   itineraries: Array,
+  sessionID: String,
+  googleId: String,
 });
 
 let yelpSchema = mongoose.Schema({
@@ -126,9 +128,10 @@ module.exports.createUser = (data, res) => {
 };
 
 module.exports.updateOrCreateUser = (query, cb) => {
-  User.findOne({ 'googleId': query.googleId }, (err, user) => {
+  User.findOne({ googleId: query.googleId }, (err, user) => {
     if (!user) {
       let newUser = new User({
+        username: query.username,
         sessionID: query.sessionID,
         googleId: query.googleId,
       });
@@ -136,6 +139,7 @@ module.exports.updateOrCreateUser = (query, cb) => {
         cb(err, user);
       });
     } else {
+      console.log(query.googleId);
       user.sessionID = query.sessionID;
       user.save((err, user) => {
         cb(err, user);
@@ -144,14 +148,25 @@ module.exports.updateOrCreateUser = (query, cb) => {
   });
 };
 
-module.exports.getUserItineraries = (user, res) => {
-  Itinerary.find({ username: user })
-    .then((itineraries) => {
-      res.json(itineraries);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+// module.exports.getUserItineraries = (user, res) => {
+//   User.find({ username: user })
+//     .then((data) => {
+//       console.log('data', data);
+//       res.json(data.itineraries);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// };
+
+module.exports.updateItineraries = (items, username, cb) => {
+  console.log('updateItineraries items', items);
+  User.findOneAndUpdate(
+    { username: username },
+    { $addToSet: { itineraries: { $each: items.itineraries } } },
+    { new: true },
+    cb
+  );
 };
 
 module.exports.logout = (sessionID, cb) => {

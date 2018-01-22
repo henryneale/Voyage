@@ -4,7 +4,7 @@ const passport = require('passport');
 const passportSetup = require('./config/passport-setup')(passport);
 const app = express();
 const bodyParser = require('body-parser');
-const db = require('../database');
+const db = require('../database/index');
 const mongoose = require('mongoose');
 const utils = require('./utils');
 const cookieParser = require('cookie-parser');
@@ -105,6 +105,18 @@ app.post('/sleep', (req, res) => {
   utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
   });
+});
+
+app.post('/trips', (req, res) => {
+  console.log('post req body', req.body);
+  db.updateItineraries(req.body, req.user.username, (data) => {
+    res.json(data);
+  });
+});
+
+app.get('/trips', (req, res) => {
+  // db.getUserItineraries(req.user.username, res);
+  res.json(req.user.itineraries);
 });
 
 app.listen(port, () => {

@@ -1,44 +1,46 @@
 import React from 'react';
-import { Menu, Button } from 'semantic-ui-react';
-
-import Paper from 'material-ui/Paper';
+import { Container, Image, Table } from 'semantic-ui-react';
+import ItineraryViewListEntry from './ItineraryViewListEntry.jsx';
 
 class ItineraryView extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-
-  //   };
-  // }
-
-
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
   render() {
-
+    let results = this.props.itineraries.map((item, i) => {
+      return (
+        <Table.Row key={i}>
+          <Table.Cell style={{ textAlign: 'center' }}>{item.name}</Table.Cell>
+          <Table.Cell style={{ textAlign: 'center' }}>
+            <Image
+              src={item.imageUrl.replace('/o.jpg', '/m.jpg')}
+              href={item.url}
+            />
+          </Table.Cell>
+        </Table.Row>
+      );
+    });
     return (
-      <div><h1>HI</h1>
-      </div>
-    )
+      <Container style={{ marginTop: '5px' }}>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell style={{ textAlign: 'center' }}>
+                Name
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ textAlign: 'center' }}>
+                Link
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>{results}</Table.Body>
+        </Table>
+      </Container>
+    );
   }
 }
 
-// const style = {
-//   height: 100,
-//   width: 100,
-//   margin: 20,
-//   textAlign: 'center',
-//   display: 'inline-block',
-// };
-
-// const ItineraryView = () => (
-//   <div>
-//     <Paper style={style} zDepth={2} />
-//     <Paper style={style} zDepth={2} />
-//     <Paper style={style} zDepth={3} />
-//     <Paper style={style} zDepth={2} />
-//     <Paper style={style} zDepth={2} />
-//   </div>
-// );
-
-//
 export default ItineraryView;

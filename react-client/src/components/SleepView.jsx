@@ -14,7 +14,7 @@ let SleepView = (props) => {
         </thead>
         <tbody>
           {props.sleep.map(item =>
-            <SleepViewListEntry key={props.sleep.indexOf(item)} item={item} />
+            <SleepViewListEntry newTrip={props.newTrip} key={props.sleep.indexOf(item)} item={item} />
           ) }
         </tbody>
       </table>
