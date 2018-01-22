@@ -10,7 +10,7 @@ let callback_URL;
 if (process.env.NODE_ENV === 'production') {
   client_ID = process.env.CLIENT_ID;
   client_Secret = process.env.CLIENT_SECRET;
-  callback_URL = 'https://infinite-shore-73371.herokuapp.com';
+  callback_URL = 'https://infinite-shore-73371.herokuapp.com/auth/google/callback';
 } else {
   configAuth = require('./auth');
   client_ID = configAuth.googleAuth.clientID;
