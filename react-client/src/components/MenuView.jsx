@@ -3,16 +3,10 @@ import { Menu, Button } from 'semantic-ui-react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import ItineraryView from './ItineraryView.jsx';
 
-const colors = [
-  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black',
-]
-
 class MenuView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   }
 
@@ -33,7 +27,10 @@ class MenuView extends React.Component {
             <Link to={'/itinerary'}><Menu.Item name='my trips' active={activeItem === 'itineraries'} onClick={this.handleItemClick} /></Link>
 
             <Menu.Menu position='right'>
-              <a href='/login'><Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} /></a>
+              {this.props.user.username ?
+                <a href='/logout'><Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} /></a>:
+                <a href='/login'><Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} /></a>
+              }
             </Menu.Menu>
           </Menu>
           <div>
