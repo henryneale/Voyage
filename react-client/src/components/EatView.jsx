@@ -13,7 +13,7 @@ let EatView = (props) => {
         </thead>
         <tbody>
           {props.eat.map(item =>
-            <EatViewListEntry key={props.eat.indexOf(item)} item={item} />
+            <EatViewListEntry newTrip={props.newTrip} key={props.eat.indexOf(item)} item={item} />
           ) }
         </tbody>
       </table>

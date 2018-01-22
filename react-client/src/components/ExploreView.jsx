@@ -14,7 +14,7 @@ let ExploreView = (props) => {
         </thead>
         <tbody>
           {props.explore.map(item =>
-            <ExploreViewListEntry key={props.explore.indexOf(item)} item={item} />
+            <ExploreViewListEntry newTrip={props.newTrip} key={props.explore.indexOf(item)} item={item} />
           ) }
         </tbody>
       </table>

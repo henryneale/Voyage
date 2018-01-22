@@ -5,11 +5,11 @@ let EVENT_BRITE_API;
 
 if (process.env.NODE_ENV === 'production') {
   YELP_API = process.env.YELP_API_KEY;
-  EVENT_BRITE_API = process.env.EVENT_BRITE_API;
+  EVENT_BRITE_API = process.env.EVENT_BRITE_API_KEY;
 } else {
   config = require('./config/config');
   YELP_API = config.YELP_API_KEY;
-  EVENT_BRITE_API = config.EVENT_BRITE_API;
+  EVENT_BRITE_API = config.EVENT_BRITE_API_KEY;
 }
 
 
@@ -40,7 +40,6 @@ const filterEvents = (array) => {
       description: event.description.text,
       start: event.start.local,
       end: event.end.local,
-      cost: event.ticket_classes.cost,
     };
   });
 };

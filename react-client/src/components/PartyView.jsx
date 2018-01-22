@@ -14,7 +14,7 @@ let PartyView = (props) => {
         </thead>
         <tbody>
           {props.party.map(item =>
-            <PartyViewListEntry key={props.party.indexOf(item)} item={item} />
+            <PartyViewListEntry newTrip={props.newTrip} key={props.party.indexOf(item)} item={item} />
           ) }
         </tbody>
       </table>
