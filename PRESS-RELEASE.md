@@ -20,7 +20,7 @@ Once the project moves into development, the press release can be used as a touc
   > Voyager
 
 ## Sub-Heading ##
-  >
+  > Ready to plan your getaway?
 
 ## Summary ##
   > A one-stop shop to create your travel itinerary.
@@ -32,13 +32,14 @@ Once the project moves into development, the press release can be used as a touc
   > Users can find restaurants, accommodations, activities and save events to their google calendar via a centralized platform, Voyager.
 
 ## Quote from You ##
-  >
+  >"No more 10 sites for one trip! One getaway, one site!"
 
 ## How to Get Started ##
-  >
+  >Just navigate to our webpage and input the city you would like to go to, and your general price range!
 
 ## Customer Quote ##
-  >
+  >"I am elated that I can plan a trip with one website!"
 
 ## Closing and Call to Action ##
-  >
+  >"Stop wasting time planning your trip and visit our website now!"
+
