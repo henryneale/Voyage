@@ -12,7 +12,6 @@ if (process.env.NODE_ENV === 'production') {
   EVENT_BRITE_API = config.EVENT_BRITE_API_KEY;
 }
 
-
 // takes list of business info from Yelp API and extracts relevant data
 const filterBusinesses = (array) => {
   return array.map((business) => {
@@ -30,7 +29,7 @@ const filterBusinesses = (array) => {
 
 // takes list of event info from EventBrite API and extracts relevant data
 const filterEvents = (array) => {
-  const top10 = array.slice(0,9);
+  const top10 = array.slice(0, 9);
   return top10.map((event) => {
     return {
       id: event.id,
@@ -50,7 +49,7 @@ const getAxios = (queryURL, key, api, cb) => {
     method: 'get',
     url: queryURL,
     headers: {
-      'Authorization': `Bearer ${key}`
+      Authorization: `Bearer ${key}`,
     },
   })
     .then((response) => {
@@ -85,13 +84,19 @@ const getBusinessesOrEvents = (options, cb) => {
       params.price = '';
     }
 
-    queryURL = `https://api.yelp.com/v3/businesses/search?term=${options.term}&categories=${options.categories}&location=${options.location}&price=${options.price}&limit=10&sort_by=rating`;
+    queryURL = `https://api.yelp.com/v3/businesses/search?term=${
+      options.term
+    }&categories=${options.categories}&location=${options.location}&price=${
+      options.price
+    }&limit=10&sort_by=rating`;
 
     key = YELP_API;
   }
 
   if (api === 'eventBrite') {
-    queryURL = `https://www.eventbriteapi.com/v3/events/search/?q=concerts+festivals+shows&location.address=${options.location}&sort_by=date`;
+    queryURL = `https://www.eventbriteapi.com/v3/events/search/?q=concerts+festivals+shows&location.address=${
+      options.location
+    }&sort_by=date`;
 
     key = EVENT_BRITE_API;
   }

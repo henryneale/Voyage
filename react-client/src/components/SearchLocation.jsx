@@ -34,7 +34,6 @@ class SearchLocation extends React.Component {
     this.props.searchLocation(this.target.name);
   }
 
-
   onSetDestination() {
     this.props.changeLoc(this.state.location);
   }

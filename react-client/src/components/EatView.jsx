@@ -7,20 +7,22 @@ let EatView = (props) => {
       <table>
         <thead>
           <tr>
-            <th></th>
-            <th></th>
+            <th />
+            <th />
           </tr>
         </thead>
         <tbody>
-          {props.eat.map(item =>
-            <EatViewListEntry newTrip={props.newTrip} key={props.eat.indexOf(item)} item={item} />
-          ) }
+          {props.eat.map((item) => (
+            <EatViewListEntry
+              newTrip={props.newTrip}
+              key={props.eat.indexOf(item)}
+              item={item}
+            />
+          ))}
         </tbody>
       </table>
     </div>
   );
 };
 
-
 export default EatView;
-

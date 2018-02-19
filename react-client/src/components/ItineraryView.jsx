@@ -5,8 +5,7 @@ import ItineraryViewListEntry from './ItineraryViewListEntry.jsx';
 class ItineraryView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {

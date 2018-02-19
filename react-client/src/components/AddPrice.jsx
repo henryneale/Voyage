@@ -5,17 +5,20 @@ class AddPrice extends React.Component {
     super(props);
     this.state = {
       price: '',
-      isSelected: false
+      isSelected: false,
     };
 
     this.priceHandler = this.priceHandler.bind(this);
   }
 
   priceHandler(e) {
-    this.setState({
-      isSelected: !this.state.isSelected,
-      price: e.target.value,
-    }, () => this.onSetPrice());
+    this.setState(
+      {
+        isSelected: !this.state.isSelected,
+        price: e.target.value,
+      },
+      () => this.onSetPrice()
+    );
   }
 
   onSetPrice() {
@@ -27,20 +30,47 @@ class AddPrice extends React.Component {
       <div className="priceButtons">
         <p className="priceText">
           <label>
-            <input className="radioButton" type="radio" name="price" value="1" onClick={this.priceHandler} checked={this.state.isSelected} />$
+            <input
+              className="radioButton"
+              type="radio"
+              name="price"
+              value="1"
+              onClick={this.priceHandler}
+              checked={this.state.isSelected}
+            />$
           </label>
           <label>
-            <input className="radioButton" type="radio" name="price" value="2" onClick={this.priceHandler} checked={this.state.isSelected}/>$$
+            <input
+              className="radioButton"
+              type="radio"
+              name="price"
+              value="2"
+              onClick={this.priceHandler}
+              checked={this.state.isSelected}
+            />$$
           </label>
           <label>
-            <input className="radioButton" type="radio" name="price" value="3" onClick={this.priceHandler} checked={this.state.isSelected}/>$$$
+            <input
+              className="radioButton"
+              type="radio"
+              name="price"
+              value="3"
+              onClick={this.priceHandler}
+              checked={this.state.isSelected}
+            />$$$
           </label>
           <label>
-            <input className="radioButton" type="radio" name="price" value="4" onClick={this.priceHandler} checked={this.state.isSelected}/>$$$$
+            <input
+              className="radioButton"
+              type="radio"
+              name="price"
+              value="4"
+              onClick={this.priceHandler}
+              checked={this.state.isSelected}
+            />$$$$
           </label>
         </p>
       </div>
-
     );
   }
 }

@@ -43,7 +43,8 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('/profile/:username')
+    axios
+      .get('/profile/:username')
       .then((response) => {
         this.setState({
           username: response.data.username,
@@ -60,16 +61,26 @@ class App extends React.Component {
 
   // sets the location state
   onChangeLocation(destination) {
-    this.setState({
-      location: destination,
-    }, ()=>{console.log('Destination has been set!', this.state.location);});
+    this.setState(
+      {
+        location: destination,
+      },
+      () => {
+        console.log('Destination has been set!', this.state.location);
+      }
+    );
   }
 
   // sets the price state
   onChangePrice(value) {
-    this.setState({
-      price: value,
-    }, ()=>{console.log('Price has been set!', this.state.price);});
+    this.setState(
+      {
+        price: value,
+      },
+      () => {
+        console.log('Price has been set!', this.state.price);
+      }
+    );
     this.setActivities = this.setActivities.bind(this);
   }
 
@@ -82,69 +93,94 @@ class App extends React.Component {
 
   // this method will get called when clicked on GO button
   go() {
-    if (this.state.activities.includes('explore') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/explore', {
-        location: this.state.location,
-        price: this.state.price,
-      })
-        .then(response => {
+    if (
+      this.state.activities.includes('explore') &&
+      this.state.location !== '' &&
+      this.state.price !== ''
+    ) {
+      axios
+        .post('/explore', {
+          location: this.state.location,
+          price: this.state.price,
+        })
+        .then((response) => {
           console.log('explore data from server', response);
-           this.getExploreData(response.data);
+          this.getExploreData(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log('error..!!', error);
         });
     }
 
-     if (this.state.activities.includes('sleep') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/sleep', {
-        location: this.state.location,
-        price: this.state.price,
-      })
-        .then(response => {
-           console.log('sleep data from server', response);
-           this.getSleepData(response.data);
+    if (
+      this.state.activities.includes('sleep') &&
+      this.state.location !== '' &&
+      this.state.price !== ''
+    ) {
+      axios
+        .post('/sleep', {
+          location: this.state.location,
+          price: this.state.price,
         })
-        .catch(error => {
+        .then((response) => {
+          console.log('sleep data from server', response);
+          this.getSleepData(response.data);
+        })
+        .catch((error) => {
           console.log('error..!!', error);
         });
     }
 
-     if (this.state.activities.includes('eat') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/eat', {
-        location: this.state.location,
-        price: parseInt(this.state.price),
-      })
-        .then(response => {
-           console.log('eat data from server', response);
-           this.getEatData(response.data);
+    if (
+      this.state.activities.includes('eat') &&
+      this.state.location !== '' &&
+      this.state.price !== ''
+    ) {
+      axios
+        .post('/eat', {
+          location: this.state.location,
+          price: parseInt(this.state.price),
         })
-        .catch(error => {
+        .then((response) => {
+          console.log('eat data from server', response);
+          this.getEatData(response.data);
+        })
+        .catch((error) => {
           console.log('error..!!', error);
         });
     }
 
-      if (this.state.activities.includes('party') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/party', {
-        location: this.state.location,
-        price: this.state.price,
-      })
-        .then(response => {
-           console.log('party data from server', response.data);
-           this.getPartyData(response.data);
+    if (
+      this.state.activities.includes('party') &&
+      this.state.location !== '' &&
+      this.state.price !== ''
+    ) {
+      axios
+        .post('/party', {
+          location: this.state.location,
+          price: this.state.price,
         })
-        .catch(error => {
+        .then((response) => {
+          console.log('party data from server', response.data);
+          this.getPartyData(response.data);
+        })
+        .catch((error) => {
           console.log('error..!!', error);
         });
     }
     this.changeTripView();
   }
 
-//sets the trip view
+  //sets the trip view
   changeTripView() {
-    this.setState({
-      view: 'trip',
-    }, () => {  console.log('change trip view') });
+    this.setState(
+      {
+        view: 'trip',
+      },
+      () => {
+        console.log('change trip view');
+      }
+    );
   }
 
   // sets the state with the explore data which is coming from server
@@ -176,28 +212,27 @@ class App extends React.Component {
   }
   onSuccess(response) {
     const token = response.headers.get('x-auth-token');
-    response.json().then(user => {
+    response.json().then((user) => {
       if (token) {
-        this.setState({isAuthenticated: true, user: user, token: token});
+        this.setState({ isAuthenticated: true, user: user, token: token });
       }
     });
   }
 
-  onFailed (error) {
+  onFailed(error) {
     alert(error);
-  };
-  logout () {
-
   }
+  logout() {}
 
   newTrip(item) {
-    axios.post('/trips', {
-      itineraries: [...this.state.user.itineraries, item],
-    })
-      .then(response => {
-         console.log('itineraries data for user', response);
+    axios
+      .post('/trips', {
+        itineraries: [...this.state.user.itineraries, item],
       })
-      .catch(error => {
+      .then((response) => {
+        console.log('itineraries data for user', response);
+      })
+      .catch((error) => {
         console.log('error..!!', error);
       });
   }
@@ -205,21 +240,34 @@ class App extends React.Component {
   render() {
     const { view } = this.state;
 
-    <MenuView />
+    <MenuView />;
     if (view === 'trip') {
       return (
         <MuiThemeProvider>
           <div>
-          <MenuView itineraries={this.state.user.itineraries} user={this.state.user} />
-          <TripView newTrip={this.newTrip.bind(this)} itineraries={this.state.user.itineraries} eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
+            <MenuView
+              itineraries={this.state.user.itineraries}
+              user={this.state.user}
+            />
+            <TripView
+              newTrip={this.newTrip.bind(this)}
+              itineraries={this.state.user.itineraries}
+              eat={this.state.eat}
+              party={this.state.party}
+              sleep={this.state.sleep}
+              explore={this.state.explore}
+            />
           </div>
         </MuiThemeProvider>
-      )
+      );
     } else if (view === 'home') {
       return (
         <MuiThemeProvider>
           <div>
-            <MenuView itineraries={this.state.user.itineraries} user={this.state.user} />
+            <MenuView
+              itineraries={this.state.user.itineraries}
+              user={this.state.user}
+            />
             <div className="headers">
               <h1>Voyage</h1>
               <h5>Ready to plan your next getaway?</h5>
@@ -234,7 +282,14 @@ class App extends React.Component {
               </div>
             </div>
             <div className="goButton">
-              <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Let's go! </button>
+              <button
+                type="button"
+                className="btn btn-primary mb-2"
+                onClick={this.go}
+              >
+                {' '}
+                Let's go!{' '}
+              </button>
             </div>
           </div>
         </MuiThemeProvider>

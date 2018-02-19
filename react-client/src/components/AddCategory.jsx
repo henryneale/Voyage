@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 
-
 class AddCategory extends React.Component {
   constructor(props) {
     super(props);
@@ -13,13 +12,12 @@ class AddCategory extends React.Component {
     this.setUserActivities = this.setUserActivities.bind(this);
   }
 
-
   //  collecting the array of selected checkbox values onClick event
   onCheckBoxClick(e) {
     let selectedElement = $("input[name='activities']:checked");
     let arr = [];
     const obj = this;
-    $.each(selectedElement, function (index) {
+    $.each(selectedElement, function(index) {
       console.log(index, $(this).val());
       arr.push($(this).val());
       if (selectedElement.length - 1 === index) {
@@ -30,9 +28,14 @@ class AddCategory extends React.Component {
 
   //  setting the state with the array of user selected categories
   setData(data) {
-    this.setState({
-      category: data,
-    }, () => { this.setUserActivities(); });
+    this.setState(
+      {
+        category: data,
+      },
+      () => {
+        this.setUserActivities();
+      }
+    );
   }
 
   //setting the activities state in spp.jsx component
@@ -47,22 +50,46 @@ class AddCategory extends React.Component {
           <div className="col-sm-12">
             <p className="categoryText">
               <label className="oneLabel">
-                <input className="categoryBox" type="checkbox" name="activities" value="eat" onClick={this.onCheckBoxClick} />
+                <input
+                  className="categoryBox"
+                  type="checkbox"
+                  name="activities"
+                  value="eat"
+                  onClick={this.onCheckBoxClick}
+                />
                 Eat
               </label>
               <label>
-                <input className="categoryBox" type="checkbox" name="activities" value="party" onClick={this.onCheckBoxClick} />
+                <input
+                  className="categoryBox"
+                  type="checkbox"
+                  name="activities"
+                  value="party"
+                  onClick={this.onCheckBoxClick}
+                />
                 Party
               </label>
               <label>
-                <input className="categoryBox" type="checkbox" name="activities" value="sleep" onClick={this.onCheckBoxClick} />
+                <input
+                  className="categoryBox"
+                  type="checkbox"
+                  name="activities"
+                  value="sleep"
+                  onClick={this.onCheckBoxClick}
+                />
                 Sleep
               </label>
               <label>
-                <input className="categoryBox" type="checkbox" name="activities" value="explore" onClick={this.onCheckBoxClick} />
-            Explore
+                <input
+                  className="categoryBox"
+                  type="checkbox"
+                  name="activities"
+                  value="explore"
+                  onClick={this.onCheckBoxClick}
+                />
+                Explore
               </label>
-          </p>
+            </p>
           </div>
         </div>
       </div>

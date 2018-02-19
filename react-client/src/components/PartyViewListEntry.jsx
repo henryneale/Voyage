@@ -4,7 +4,7 @@ class PartyViewListEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      items: [],
     };
   }
 
@@ -16,9 +16,20 @@ class PartyViewListEntry extends React.Component {
   render() {
     return (
       <tr>
-        <td><a href={this.props.item.url}><h3>{this.props.item.name}</h3></a></td>
-        <td><img src={this.props.item.imageUrl.replace('/o.jpg', '/m.jpg')} alt=""/> </td>
-        <td><button onClick={this.onClick.bind(this)}>Add</button></td>
+        <td>
+          <a href={this.props.item.url}>
+            <h3>{this.props.item.name}</h3>
+          </a>
+        </td>
+        <td>
+          <img
+            src={this.props.item.imageUrl.replace('/o.jpg', '/m.jpg')}
+            alt=""
+          />{' '}
+        </td>
+        <td>
+          <button onClick={this.onClick.bind(this)}>Add</button>
+        </td>
       </tr>
     );
   }

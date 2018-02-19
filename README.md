@@ -4,10 +4,10 @@ Plan your next getaway.
 
 ## Team
 
-  - Tra (Backend Development)
-  - Peter Wang (Front End Development)
-  - Steven Lee (Backend Development & Front End Stylization)
-  - Tejaswi Guvvala (Front End Development)
+  - [Thuan Tran - Software Engineer](https://github.com/toowan)
+  - [Travis Tillman - Software Engineer](https://github.com/semperviridis)
+  - [David Inoa - Software Engineer](https://github.com/davidinoa)
+  - [Henry Neale - Software Engineer](https://github.com/henryneale)
 
 ## Table of Contents
 
@@ -21,9 +21,10 @@ Plan your next getaway.
 1. [Contributing](#contributing)
 1. [Front End Development](#front-end-development)
 1. [Back End Development](#back-end-development)
+
 ## Usage
 
-Used for managing trips for individuals. Allows a user to search the events,restaurents,activities around the destination place. Users can also save their trips and collab with other users.
+Used for managing trips for individuals. Allows a user to search the events, restaurants, activities around the destination place. Users can also save their trips and collab with other users.
 
 ## Requirements
 
@@ -44,7 +45,9 @@ Used for managing trips for individuals. Allows a user to search the events,rest
 * bootstrap
 
 ## Development
-Once you have forked the repo from https://github.com/TeamVoyage/Voyage , install all the dependencies.
+
+Once you have forked the repo from https://github.com/bestpikachu/Voyage, install all the dependencies.
+
 ### Installing Dependencies
 
 From within the root directory:
@@ -52,7 +55,6 @@ From within the root directory:
 npm install
 npm run react-dev
 npm run server-dev
-
 
 ### Create and input your API Keys in /server/config/config.js
 
@@ -63,7 +65,7 @@ Inside /server/config/config.js, create a new file named "config.js". Inside thi
 
 }'
 
-## Greate and input your Google credentials in /server/config/auth.js
+## Create and input your Google credentials in /server/config/auth.js
 We use google to authenticate, so your app with need google credentials to properly implement authentication. There are links below to get your google credentials.
 * Google developers website: https://console.developers.google.com/
 
@@ -77,7 +79,6 @@ Below is the format:
         callbackURL: ''
     }
 }'
-
 
 ## Front End Development
 
